@@ -83,7 +83,7 @@ function Page({ params }: { params: { name: string } }) {
   return (
     <div>
       <NavBar />
-      <Banner title={params.name} src={swaraag} />
+      <Banner title={decodeURI(params.name)} src={swaraag} />
       {/* Overview */}
       <div className="flex flex-col gap-10 w-full laptop:px-[10rem] xsPhone:px-[2rem] py-[5rem] justify-center items-center text-justify text-wrap font-montserrat">
         <div className="flex flex-col justify-center items-center gap-4">
@@ -98,7 +98,7 @@ function Page({ params }: { params: { name: string } }) {
             <div className="flex flex-col justify-center items-center w-[90%] gap-10">
               <SanityImage
                 src={coordinator.clubLogo!}
-                className="w-[30%] h-auto"
+                className="w-[30%] max-w-[10rem] h-auto"
               />
               <div className="w-[70%] text-center">
                 <p className="text-lg italic">
@@ -154,7 +154,7 @@ function Page({ params }: { params: { name: string } }) {
       <div className="w-full border bg-[#DE1819] laptop:px-[10rem] xsPhone:px-[2rem] py-[3.5rem] text-white font-montserrat space-y-4 flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-4">
           <h1 className="font-semibold font-playfair tracking-wide tablet:text-4xl xsPhone:text-2xl">
-            About
+            What We Do?
           </h1>
           <hr className="h-[0.4rem] tablet:w-[6rem] xsPhone:w-[4rem] rounded-xl bg-white" />
         </div>
@@ -187,23 +187,23 @@ function Page({ params }: { params: { name: string } }) {
                     {coordinator.facultyDesignation}
                   </p>
                 </div>
-                <div>
+                {/* <div>
                   <p className="  text-xl italic">
                     {`"`}
                     {coordinator.messageFaculty}
                     {`"`}
                   </p>
-                </div>
+                </div> */}
                 <div className="space-y-2">
                   <div className=" flex gap-4 text-lg">
                     <Mail className="h-auto w-5" />
                     {coordinator.contactMail}
                   </div>
-                  <div className=" flex gap-2 text-lg">
+                  {/* <div className=" flex gap-2 text-lg">
                     <Phone className="h-auto w-5" />
                     {"+91-"}
                     {coordinator.contactPhone}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

@@ -25,10 +25,12 @@ const Page = () => {
 
   const [event, setEvent] = useState<calenderEvent[]>();
 
-  const [todayEvent, setTodayEvent] = useState<{
-    name: string;
-    id: string;
-  }>();
+  const [todayEvent, setTodayEvent] = useState<
+    {
+      name: string;
+      id: string;
+    }[]
+  >();
 
   useEffect(() => {
     const eventData = axios.get(
@@ -54,10 +56,17 @@ const Page = () => {
           item.startDate.getMonth() === new Date().getMonth() &&
           item.startDate.getDate() === new Date().getDate()
         ) {
-          setTodayEvent({
-            name: item.name,
-            id: item._id!,
-          });
+          setTodayEvent((event) => [
+            ...(event?.filter((evt) => {
+              if (evt.id !== item._id) {
+                return evt;
+              }
+            }) ?? []),
+            {
+              name: item.name,
+              id: item._id!,
+            },
+          ]);
         }
       });
     });
@@ -120,22 +129,30 @@ const Page = () => {
     <div className="flex flex-col justify-center items-center h-fit w-screen">
       <div className="mt-12 mb-6">
         <Banner>
-          <div className="flex w-full justify-between border-t border-gray-200 bg-[#DE1819] rounded-xl p-4 dark:border-gray-600 dark:bg-gray-700">
-            <div className="mx-auto flex items-center font-montserrat">
-              <p className="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
-                <span className="mr-3 animate-pulse inline-flex h-6 w-6 items-center justify-center rounded-full bg-white p-1 "></span>
-                <span className="[&_p]:inline text-white">
-                  Today&apos;s Event : {todayEvent?.name} &nbsp;
-                  <Link
-                    href={`${process.env.NEXT_PUBLIC_APP_URL}/events/${todayEvent?.id}?club=${clubName}`}
-                    className="ml-0 flex items-center text-sm font-bold text-white hover:underline dark:text-cyan-500 md:ml-1 md:inline-flex">
-                    View Event Details
-                    <HiArrowRight className="ml-2" />
-                  </Link>
-                </span>
-              </p>
-            </div>
-          </div>
+          {todayEvent &&
+            todayEvent.length > 0 &&
+            todayEvent.map((event, index) => {
+              return (
+                <>
+                  <div className="flex w-full justify-between border-t border-gray-200 bg-[#DE1819] rounded-xl p-4 dark:border-gray-600 dark:bg-gray-700">
+                    <div className="mx-auto flex items-center font-montserrat">
+                      <p className="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+                        <span className="mr-3 animate-pulse inline-flex h-6 w-6 items-center justify-center rounded-full bg-white p-1 "></span>
+                        <span className="[&_p]:inline text-white">
+                          Today&apos;s Event : {event?.name} &nbsp;
+                          <Link
+                            href={`${process.env.NEXT_PUBLIC_APP_URL}/events/${event?.id}?club=${clubName}`}
+                            className="ml-0 flex items-center text-sm font-bold text-white hover:underline dark:text-cyan-500 md:ml-1 md:inline-flex">
+                            View Event Details
+                            <HiArrowRight className="ml-2" />
+                          </Link>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
         </Banner>
       </div>
       <Calendar

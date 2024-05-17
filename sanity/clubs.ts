@@ -56,21 +56,21 @@ const clubs = {
       title: "Faculty Coordintor Designation",
       type: "string",
     },
-    {
-      name: "messageFaculty",
-      title: "Message from Faculty Coordintor",
-      type: "text",
-    },
+    // {
+    //   name: "messageFaculty",
+    //   title: "Message from Faculty Coordintor",
+    //   type: "text",
+    // },
     {
       name: "contactMail",
       title: "Contact Information of Faculty Coordintor (E-mail)",
       type: "string",
     },
-    {
-      name: "contactPhone",
-      title: "Contact Information of Faculty Coordintor (Phone)",
-      type: "string",
-    },
+    // {
+    //   name: "contactPhone",
+    //   title: "Contact Information of Faculty Coordintor (Phone)",
+    //   type: "string",
+    // },
     {
       name: "coordinatorPhoto",
       title: "Upload Photo of Faculty Coordinator",

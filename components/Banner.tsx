@@ -9,7 +9,7 @@ function Banner({ title, src }: { title: string; src: StaticImageData }) {
     <div className="relative h-fit w-full border">
       <Image
         src={src}
-        className="tablet:h-auto xsPhone:h-[55ch] w-fit object-cover filter brightness-50 "
+        className="tablet:h-auto xsPhone:h-[55ch]  w-fit object-cover filter brightness-50 "
         alt="dp"
       />
       <p className="z-[200] text-pretty text-shadow absolute text-white translate-x-[-50%] translate-y-[-50%] left-[50%] top-[50%] font-bold font-montserrat text-4xl drop-shadow-lg">

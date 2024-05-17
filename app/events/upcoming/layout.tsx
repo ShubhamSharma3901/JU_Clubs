@@ -5,6 +5,7 @@ import { CustomProvider } from "rsuite";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import building from "@/public/Swaraag.jpg";
+import JUFooter from "@/components/Footer";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (

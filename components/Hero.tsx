@@ -76,7 +76,7 @@ function Hero({ navList }: { navList: navItem[] }) {
                     "absolute inset-[-0.05rem] rounded-lg bg-white blur-sm  group-hover:bg-[#DE1819] group-hover:blur-md transition "
                   )}></div>
                 <div
-                  className="rounded-xl border font-semibold group-hover:bg-[#DE1819] group-hover:text-white group-hover:font-bold tracking-wider relative bg-white text-wrap w-full h-fit gap-8 py-10 uppercase font-montserrat tablet:text-[1rem] xsPhone:text-[11px] text-center flex flex-col justify-center items-center hover:scale-105 transition cursor-pointer"
+                  className="rounded-xl border font-semibold group-hover:bg-[#DE1819] group-hover:text-white group-hover:font-bold tracking-wider relative bg-white text-wrap w-full h-full gap-8 py-10 uppercase font-montserrat tablet:text-[1rem] xsPhone:text-[11px] text-center flex flex-col justify-start items-center hover:scale-105 transition cursor-pointer"
                   key={index}
                   onClick={() =>
                     router.push(
@@ -88,7 +88,7 @@ function Hero({ navList }: { navList: navItem[] }) {
                   {navItem.clubLogo && (
                     <SanityImage
                       src={navItem.clubLogo}
-                      className="w-[10rem] object-cover"
+                      className="w-[10rem] max-w-fit object-cover"
                     />
                   )}
                 </div>
