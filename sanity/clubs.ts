@@ -27,6 +27,13 @@ const clubs = {
         },
       ],
     },
+    {
+      name: "bannerPhoto",
+      title: "Upload Banner/Creative of Club",
+      type: "image",
+      options: { hotspot: true },
+      required: true,
+    },
     defineField({
       name: "overview",
       title: "Overview of the Club",
@@ -35,7 +42,20 @@ const clubs = {
     }),
     defineField({
       name: "about",
-      title: "About Club",
+      title: "What we Do?",
+      type: "array",
+      of: [
+        {
+          type: "block",
+          validation(rule) {
+            return rule.required();
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: "what_we_are",
+      title: "What we are?",
       type: "array",
       of: [
         {
@@ -56,11 +76,11 @@ const clubs = {
       title: "Faculty Coordintor Designation",
       type: "string",
     },
-    // {
-    //   name: "messageFaculty",
-    //   title: "Message from Faculty Coordintor",
-    //   type: "text",
-    // },
+    {
+      name: "messageFaculty",
+      title: "Message from Faculty Coordintor",
+      type: "text",
+    },
     {
       name: "contactMail",
       title: "Contact Information of Faculty Coordintor (E-mail)",
@@ -74,6 +94,39 @@ const clubs = {
     {
       name: "coordinatorPhoto",
       title: "Upload Photo of Faculty Coordinator",
+      type: "image",
+      options: { hotspot: true },
+    },
+    {
+      name: "presidentName",
+      title: "President Name",
+      type: "string",
+    },
+    {
+      name: "presidentPhoto",
+      title: "Upload Photo of President",
+      type: "image",
+      options: { hotspot: true },
+    },
+    {
+      name: "vicePresidentName",
+      title: "vicePresident Name",
+      type: "string",
+    },
+    {
+      name: "vicePresidentPhoto",
+      title: "Upload Photo of Vice President ",
+      type: "image",
+      options: { hotspot: true },
+    },
+    {
+      name: "treasurerName",
+      title: "Treasurer Name",
+      type: "string",
+    },
+    {
+      name: "treasurerPhoto",
+      title: "Upload Photo of Treasurer ",
       type: "image",
       options: { hotspot: true },
     },

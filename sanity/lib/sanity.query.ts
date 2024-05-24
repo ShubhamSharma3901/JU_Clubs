@@ -86,7 +86,15 @@ export async function getClubDetails(id: string) {
       messageFaculty,
       facultyDesignation,
       clubLogo,
-      overview
+      overview,
+      bannerPhoto,
+      what_we_are,
+      presidentName,
+      presidentPhoto,
+      vicePresidentName,
+      vicePresidentPhoto,
+      treasurerName,
+      treasurerPhoto
     }`,
     { id },
     {

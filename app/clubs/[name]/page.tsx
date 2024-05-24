@@ -20,10 +20,14 @@ function Page({ params }: { params: { name: string } }) {
   const search = useSearchParams();
   const id = search.get("id");
   const router = useRouter();
-  const [eventDetails, setEventDetails] = React.useState<
+  const [aboutDetails, setAboutDetails] = React.useState<
+    TypedObject | TypedObject[]
+  >([]);
+  const [whatWeAreDetails, setWhatWeAreDetails] = React.useState<
     TypedObject | TypedObject[]
   >([]);
   const [coordinator, setCoordinator] = useState<any>();
+
   useEffect(() => {
     const clubData = axios.get(
       `${process.env.NEXT_PUBLIC_APP_URL}/api/clubsDetails`,
@@ -39,10 +43,17 @@ function Page({ params }: { params: { name: string } }) {
         return item.about;
       });
 
+      const [whatWeAre] = data.data.map((item: any) => {
+        return item.what_we_are;
+      });
+
       setCoordinator(data.data[0]);
-      setEventDetails(dataFinal);
+      setAboutDetails(dataFinal);
+      setWhatWeAreDetails(whatWeAre);
     });
   }, [id]);
+
+  console.log(coordinator);
 
   const components: any = {
     block: {
@@ -83,7 +94,13 @@ function Page({ params }: { params: { name: string } }) {
   return (
     <div>
       <NavBar />
-      <Banner title={decodeURI(params.name)} src={swaraag} />
+      {coordinator && (
+        <Banner
+          title={decodeURI(params.name)}
+          src={coordinator?.bannerPhoto ?? swaraag}
+        />
+      )}
+
       {/* Overview */}
       <div className="flex flex-col gap-10 w-full laptop:px-[10rem] xsPhone:px-[2rem] py-[5rem] justify-center items-center text-justify text-wrap font-montserrat">
         <div className="flex flex-col justify-center items-center gap-4">
@@ -159,11 +176,23 @@ function Page({ params }: { params: { name: string } }) {
           <hr className="h-[0.4rem] tablet:w-[6rem] xsPhone:w-[4rem] rounded-xl bg-white" />
         </div>
         <div className="text-wrap space-y-6">
-          <PortableText value={eventDetails} components={components} />
+          <PortableText value={aboutDetails} components={components} />
         </div>
       </div>
+      <div className="w-full bg-white laptop:px-[10rem] xsPhone:px-[2rem] py-[5rem] text-black font-montserrat space-y-4 flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center gap-4">
+          <h1 className="font-semibold font-playfair tracking-wide tablet:text-4xl xsPhone:text-2xl">
+            What We Are?
+          </h1>
+          <hr className="h-[0.4rem] tablet:w-[6rem] xsPhone:w-[4rem] rounded-xl bg-[#DE1819]" />
+        </div>
+        <div className="text-wrap space-y-6">
+          <PortableText value={whatWeAreDetails} components={components} />
+        </div>
+      </div>
+
       {/* Faculty Coordinator */}
-      <div className="flex flex-col gap-10 w-full laptop:px-[10rem] xsPhone:px-[2rem] py-[5rem] justify-center items-center text-justify text-wrap font-montserrat">
+      <div className="flex flex-col gap-10 w-full laptop:px-[10rem] xsPhone:px-[2rem] py-[3.5rem] justify-center items-center text-justify text-wrap font-montserrat">
         <div className="flex flex-col justify-center items-center gap-4">
           <h1 className="font-semibold font-playfair tracking-wide tablet:text-4xl xsPhone:text-2xl">
             Faculty Coordinator
@@ -187,26 +216,79 @@ function Page({ params }: { params: { name: string } }) {
                     {coordinator.facultyDesignation}
                   </p>
                 </div>
-                {/* <div>
+                <div>
                   <p className="  text-xl italic">
                     {`"`}
                     {coordinator.messageFaculty}
                     {`"`}
                   </p>
-                </div> */}
+                </div>
                 <div className="space-y-2">
                   <div className=" flex gap-4 text-lg">
                     <Mail className="h-auto w-5" />
                     {coordinator.contactMail}
                   </div>
-                  {/* <div className=" flex gap-2 text-lg">
-                    <Phone className="h-auto w-5" />
-                    {"+91-"}
-                    {coordinator.contactPhone}
-                  </div> */}
                 </div>
               </div>
             </div>
+          )}
+        </div>
+      </div>
+      {/* Team Members */}
+      <div className="flex flex-col gap-10 w-full laptop:px-[10rem] xsPhone:px-[2rem] py-[3.5rem] justify-center items-center text-justify text-wrap font-montserrat">
+        <div className="flex flex-col justify-center items-center gap-4">
+          <h1 className="font-semibold font-playfair tracking-wide tablet:text-4xl xsPhone:text-2xl">
+            Team Members
+          </h1>
+          <hr className="h-[0.4rem] tablet:w-[6rem] xsPhone:w-[4rem] rounded-xl bg-red-500" />
+        </div>
+
+        <div className="w-full  grid tablet:grid-cols-3 phone:grid-cols-1 phone:gap-10  pt-8">
+          {coordinator && (
+            <>
+              <div className="flex flex-col  phone:w-[80%] tablet:gap-10 phone:gap-2 ">
+                <SanityImage
+                  src={coordinator.presidentPhoto!}
+                  className="w-[90%]"
+                />
+                <div className="flex flex-col gap-10">
+                  <div className="space-y-2">
+                    <p className="font-semibold text-[#DE1819] text-2xl">
+                      {coordinator.presidentName}
+                    </p>
+                    <p className=" text-black text-md">President</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col  phone:w-[80%] tablet:gap-10 phone:gap-2">
+                <SanityImage
+                  src={coordinator.vicePresidentPhoto!}
+                  className="w-[90%]"
+                />
+                <div className="flex flex-col gap-10">
+                  <div className="space-y-2">
+                    <p className="font-semibold text-[#DE1819] text-2xl">
+                      {coordinator.vicePresidentName}
+                    </p>
+                    <p className=" text-black text-md">Vice President</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col  phone:w-[80%] tablet:gap-10 phone:gap-2">
+                <SanityImage
+                  src={coordinator.treasurerPhoto!}
+                  className="w-[90%]"
+                />
+                <div className="flex flex-col gap-10">
+                  <div className="space-y-2">
+                    <p className="font-semibold text-[#DE1819] text-2xl">
+                      {coordinator.treasurerName}
+                    </p>
+                    <p className=" text-black text-md">Treasurer</p>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
